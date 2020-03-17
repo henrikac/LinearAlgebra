@@ -33,6 +33,11 @@ class Vector:
         return self.__data
 
     @property
+    def dtype(self):
+        """Returns the data type of the items in the vector"""
+        return str(self.data.dtype)
+
+    @property
     def size(self):
         """Returns the size of the vector"""
         return self.__data.size
