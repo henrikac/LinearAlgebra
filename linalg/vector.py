@@ -60,7 +60,7 @@ class Vector:
         return Vector(data=vec_sub)
 
     def __mul__(self, other: Union[Vector, int, float]) -> Union[Vector, int, float]:
-        """Takes the scalar product of two vectors if other is not a vector
+        """Takes the scalar product of two vectors if other is a vector
         Otherwise, scales self by other
         Returns the scalar product if other is a vector; otherwise, the scaled vector
         """
