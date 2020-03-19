@@ -3,6 +3,8 @@ from typing import Union
 
 import numpy as np
 
+import vector
+
 
 class Matrix:
     """A simple wrapper class for numpy.ndarray"""
@@ -65,12 +67,26 @@ class Matrix:
     def __str__(self) -> str:
         return str(self.data)
 
-#     def __add__(self, other: Union[Matrix, Vector]) -> Matrix:
+    def __add__(self, other: Union[Matrix, vector.Vector]) -> Matrix:
+        """Adds either:
+            - Two matrices
+            - A matrix and a vector
+        Returns a new matrix
+        """
+        if type(other) is Matrix and self.shape != other.shape:
+            raise ValueError("Matrices must be equal shaped")
+        elif type(other) is vector.Vector and self.shape[1] != other.size:
+            rows = self.shape[0]
+            cols = self.shape[1]
+            raise ValueError(f"Cannot add {rows}x{cols} matrix and 1x{other.size} vector")
+
+        data_sum = self.data + other.data
+
+        return Matrix(data=data_sum, dtype=self.dtype)
+# 
+#     def __sub__(self, other: Union[Matrix, vector.Vector]) -> Matrix:
 #         pass
 # 
-#     def __sub__(self, other: Union[Matrix, Vector]) -> Matrix:
-#         pass
-# 
-#     def __mul__(self, other: Union[Matrix, Vector]) -> Matrix:
+#     def __mul__(self, other: Union[Matrix, vector.Vector]) -> Matrix:
 #         pass
 
