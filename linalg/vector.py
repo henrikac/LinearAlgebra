@@ -42,10 +42,10 @@ class Vector:
         """Returns the size of the vector"""
         return self.__data.size
 	
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f'Vector(data={str(self.data)}, dtype={str(self.data.dtype)})'
 
-    def __str__(self):
+    def __str__(self) -> str:
         return str(self.data)
 
     def __add__(self, other: Vector) -> Vector:

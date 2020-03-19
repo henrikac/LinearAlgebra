@@ -54,7 +54,7 @@ class Matrix:
         """Returns the data type of the items in the matrix"""
         return str(self.__data.dtype)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         data = ''
 
         for row in self.data:
@@ -62,7 +62,7 @@ class Matrix:
 
         return f'Matrix(data:{data}, shape={self.data.shape}, dtype={self.dtype})'
 
-    def __str__(self):
+    def __str__(self) -> str:
         return str(self.data)
 
 #     def __add__(self, other: Union[Matrix, Vector]) -> Matrix:
