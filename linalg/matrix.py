@@ -5,6 +5,8 @@ import numpy as np
 
 
 class Matrix:
+    """A simple wrapper class for numpy.ndarray"""
+
     def __init__(self,
             data: Union[np.ndarray, List[List[int]], List[List[float]]] = None,
             dtype: np.dtype = np.float32,
@@ -31,18 +33,38 @@ class Matrix:
 
         return np.array(data, dtype=dtype)
 
-    def __is_nested_list(data: Union[List[List[int]], List[List[float]]]) -> bool:
+    def __is_nested_list(self, data: Union[List[List[int]], List[List[float]]]) -> bool:
         """Checks if data is a nested list
         Returns True if data is a nested list; otherwise, False
         """
         return all(isinstance(item, list) for item in data)
 
-#     def __repr__(self):
-#         pass
-# 
-#     def __str__(self):
-#         pass
-# 
+    @property
+    def data(self):
+        """Returns the matrixs data"""
+        return self.__data
+
+    @property
+    def shape(self):
+        """Returns the shape of the matrix"""
+        return self.__data.shape
+
+    @property
+    def dtype(self):
+        """Returns the data type of the items in the matrix"""
+        return str(self.__data.dtype)
+
+    def __repr__(self):
+        data = ''
+
+        for row in self.data:
+            data += f'\n\t{str(row)}'
+
+        return f'Matrix(data:{data}, shape={self.data.shape}, dtype={self.dtype})'
+
+    def __str__(self):
+        return str(self.data)
+
 #     def __add__(self, other: Union[Matrix, Vector]) -> Matrix:
 #         pass
 # 
