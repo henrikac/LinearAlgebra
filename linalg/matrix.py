@@ -78,15 +78,29 @@ class Matrix:
         elif type(other) is vector.Vector and self.shape[1] != other.size:
             rows = self.shape[0]
             cols = self.shape[1]
-            raise ValueError(f"Cannot add {rows}x{cols} matrix and 1x{other.size} vector")
+            raise ValueError(f"Cannot add a {rows}x{cols} matrix and 1x{other.size} vector")
 
         data_sum = self.data + other.data
 
         return Matrix(data=data_sum, dtype=self.dtype)
-# 
-#     def __sub__(self, other: Union[Matrix, vector.Vector]) -> Matrix:
-#         pass
-# 
+
+    def __sub__(self, other: Union[Matrix, vector.Vector]) -> Matrix:
+        """Subtracts either:
+            - Two matrices
+            - A matrix and a vector
+        Returns a new matrix
+        """
+        if type(other) is Matrix and self.shape != other.shape:
+            raise ValueError("Matrices must be equal shaped")
+        elif type(other) is vector.Vector and self.shape[1] != other.size:
+            rows = self.shape[0]
+            cols = self.shape[1]
+            raise ValueError(f"Cannot subtract a {rows}x{cols} matrix and 1x{other.size} vector")
+
+        data_sum = self.data - other.data
+
+        return Matrix(data=data_sum, dtype=self.dtype)
+
 #     def __mul__(self, other: Union[Matrix, vector.Vector]) -> Matrix:
 #         pass
 
