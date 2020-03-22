@@ -78,7 +78,7 @@ class Matrix:
         elif type(other) is vector.Vector and self.shape[1] != other.size:
             rows = self.shape[0]
             cols = self.shape[1]
-            raise ValueError(f"Cannot add a {rows}x{cols} matrix and 1x{other.size} vector")
+            raise ValueError(f"Cannot add a {rows}x{cols} matrix and {other.size}x1 vector")
 
         data_sum = self.data + other.data
 
@@ -95,12 +95,57 @@ class Matrix:
         elif type(other) is vector.Vector and self.shape[1] != other.size:
             rows = self.shape[0]
             cols = self.shape[1]
-            raise ValueError(f"Cannot subtract a {rows}x{cols} matrix and 1x{other.size} vector")
+            raise ValueError(f"Cannot subtract a {rows}x{cols} matrix and {other.size}x1 vector")
 
         data_sum = self.data - other.data
 
         return Matrix(data=data_sum, dtype=self.dtype)
 
-#     def __mul__(self, other: Union[Matrix, vector.Vector]) -> Matrix:
-#         pass
+    def __mul__(self, other: Union[Matrix, vector.Vector, int, float]) -> Union[Matrix, vector.Vector]:
+        """Performs:
+            - Matrix-Matrix multiplication if other is a matrix
+            - Matrix-vector multiplication if other is a vector
+            - Scales self by other if other is an int or a float
+        Returns:
+            - A matrix if other is a matrix
+            - A vector of other is a vector
+            - The scaled matrix if other is an int or a float
+        """
+        if type(other) is Matrix and self.shape[1] != other.shape[0]:
+            raise ValueError((f"Cannot multiply a {self.shape[0]}x{self.shape[1]} matrix"
+                            f" and a {other.shape[0]}x{other.shape[1]} matrix"))
+        elif type(other) is vector.Vector and self.shape[1] != other.size:
+            raise ValueError(("Cannot perform matrix-vector multiplication on a "
+                            f"{self.shape[0]}x{self.shape[1]} matrix and a "
+                            f"{other.size}x1 vector"))
+
+        if type(other) is Matrix:
+            mul_data = self.data @ other.data
+
+            return Matrix(data=mul_data, dtype=self.dtype)
+
+        if type(other) is vector.Vector:
+            mul_data = np.zeros(other.size)
+
+            for i, row in enumerate(other.data):
+                mul_data[i] = np.sum(row * self.data)
+
+            return vector.Vector(data=mul_data, dtype=self.dtype)
+
+        scaled_data = self.data * other
+
+        return Matrix(data=scaled_data, dtype=self.dtype)
+
+
+
+
+
+
+
+
+
+
+
+
+
 

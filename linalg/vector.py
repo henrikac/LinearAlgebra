@@ -90,32 +90,18 @@ class Vector:
 
         return Vector(data=data_sum, dtype=self.dtype)
 
-    def __mul__(self, other: Union[matrix.Matrix, Vector, int, float]) -> Union[Vector, int, float]:
+    def __mul__(self, other: Union[Vector, int, float]) -> Union[Vector, int, float]:
         """Takes the scalar product of two vectors if other is a vector
         Scales self by other
-        Performs vector-matrix multiplication if other is a matrix
         Returns:
             - The scalar product if other is a vector
             - The scaled vector if other is an int or a float
-            - A vector of other is a matrix
         """
         if type(other) is Vector and self.size != other.size:
             raise ValueError("Cannot take the scalar product of two vectors with different sizes")
-        elif type(other) is matrix.Matrix and self.size != other.shape[1]:
-            rows = other.shape[0]
-            cols = other.shape[1]
-            raise ValueError(("Cannot perform vector-matrix multiplication on "
-                            f"a {rows}x{cols} matrix and {self.size}x1 vector"))
 
         if type(other) is Vector:
             return np.dot(self.data, other.data)
-        elif type(other) is matrix.Matrix:
-            mul_data = np.zeros(other.shape[0])
-
-            for i, row in enumerate(other.data):
-                mul_data[i] = np.sum(row * self.data)
-
-            return Vector(data=mul_data, dtype=other.dtype)
 
         scaled_data = self.data * other
 
