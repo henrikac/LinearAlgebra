@@ -136,16 +136,3 @@ class Matrix:
 
         return Matrix(data=scaled_data, dtype=self.dtype)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
