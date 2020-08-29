@@ -20,10 +20,10 @@ vec3 = Vector(data=[4, -2, -1], dtype=np.int32)
 # Vector(data=[4 -2 -1], dtype=int32)
 
 vec1 + vec3
-Vector(data=[5. 1. -6.], dtype=float32)
+# Vector(data=[5. 1. -6.], dtype=float32)
 
 vec3 + vec1
-Vector(data=[5 1 -6], dtype=int32)
+# Vector(data=[5 1 -6], dtype=int32)
 
 vec1 * vec3
 # 3.0
