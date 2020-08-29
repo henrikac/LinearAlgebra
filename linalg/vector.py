@@ -3,8 +3,6 @@ from typing import List, Union
 
 import numpy as np
 
-import matrix
-
 
 class Vector:
     """A simple wrapper class for numpy.array"""
@@ -50,43 +48,21 @@ class Vector:
     def __str__(self) -> str:
         return str(self.data)
 
-    def __add__(self, other: Union[matrix.Matrix, Vector]) -> Union[matrix.Matrix, Vector]:
-        """Adds either:
-            - Two vectors
-            - A vector and a matrix
-        Returns a new vector if vector addition; otherwise, a matrix
-        """
-        if type(other) is Vector and self.size != other.size:
+    def __add__(self, other: Vector) -> Vector:
+        """Adds two vectors and returns a new vector"""
+        if self.size != other.size:
             raise ValueError("Cannot add two vectors with different sizes")
-        elif type(other) is matrix.Matrix and self.size != other.shape[1]:
-            rows = other.shape[0]
-            cols = other.shape[1]
-            raise ValueError(f"Cannot add a {rows}x{cols} matrix and {self.size}x1 vector")
 
         data_sum = self.data + other.data
 
-        if type(other) is matrix.Matrix:
-            return matrix.Matrix(data=data_sum, dtype=other.dtype)
-
         return Vector(data=data_sum, dtype=self.dtype)
 
-    def __sub__(self, other: Union[matrix.Matrix, Vector]) -> Vector:
-        """Subtracts either:
-            - Two vectors
-            - A vector and a matrix
-        Returns a new vector if vector addition; otherwise, a matrix
-        """
-        if type(other) is Vector and self.size != other.size:
+    def __sub__(self, other: Vector) -> Vector:
+        """Subtracts two vectors and returns a new vector"""
+        if self.size != other.size:
             raise ValueError("Cannot subtract two vectors with different sizes")
-        elif type(other) is matrix.Matrix and self.size != other.shape[1]:
-            rows = other.shape[0]
-            cols = other.shape[1]
-            raise ValueError(f"Cannot subtract a {rows}x{cols} matrix and {self.size}x1 vector")
 
         data_sum = self.data - other.data
-
-        if type(other) is matrix.Matrix:
-            return matrix.Matrix(data=data_sum, dtype=other.dtype)
 
         return Vector(data=data_sum, dtype=self.dtype)
 
