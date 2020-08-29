@@ -21,9 +21,9 @@ class Vector:
         If data is None the vector will be set to a zero vector
         """
         if data is not None and type(data) is not list and data.ndim > 1:
-            raise ValueError("Vectors should be rank 1")
+            raise ValueError("Vectors should consist of a single row/column")
         elif type(data) is list and any(isinstance(item, list) for item in data):
-            raise ValueError("Vectors should be rank 1")
+            raise ValueError("Vectors should consist of a single row/column")
 
         return np.zeros(size, dtype) if data is None else np.array(data, dtype)
 
