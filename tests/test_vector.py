@@ -2,7 +2,7 @@ from unittest import TestCase
 
 import numpy as np
 
-from linalg.vector import Vector
+from vector import Vector
 
 
 class VectorTestCase(TestCase):
@@ -49,7 +49,7 @@ class VectorTestCase(TestCase):
         self.assertEqual(vec.dtype, 'int32')
         self.assertTrue(np.array_equal(vec.data, np.array(data)))
 
-    def test_vector_rank1_required(self):
+    def test_vector_shape_required(self):
         data = [[1, 2, 3], [4, 5, 6]]
 
         with self.assertRaises(ValueError):
