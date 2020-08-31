@@ -95,10 +95,10 @@ class Vector:
             - The scalar product if other is a vector
             - The scaled vector if other is an int or a float
         """
-        if type(other) is Vector and self.size != other.size:
-            raise ValueError("Cannot take the scalar product of two vectors with different sizes")
+        if isinstance(other, Vector):
+            if self.size != other.size:
+                raise ValueError("Cannot take the scalar product of two vectors with different sizes")
 
-        if type(other) is Vector:
             return np.dot(self.data, other.data)
 
         scaled_data = self.data * other
