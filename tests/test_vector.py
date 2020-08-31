@@ -126,3 +126,47 @@ class VectorTestCase(TestCase):
         with self.assertRaises(ValueError):
             vec1 * vec2
 
+    def test_vector_index(self):
+        vec = Vector(data=[1, 2, 3], dtype=np.int32)
+
+        self.assertEqual(vec[0], 1)
+        self.assertEqual(vec[2], 3)
+
+    def test_vector_negative_index(self):
+        vec = Vector(data=[1, 2, 3, 4, 5], dtype=np.int32)
+
+        self.assertEqual(vec[-1], 5)
+
+    def test_vector_invalid_index_type(self):
+        vec = Vector(data=[1, 2, 3], dtype=np.int32)
+
+        with self.assertRaises(TypeError):
+            idx = vec['1']
+
+    def test_vector_too_low_index(self):
+        vec = Vector(data=[1, 2, 3], dtype=np.int32)
+
+        with self.assertRaises(IndexError):
+            idx = vec[-4]
+
+    def test_vector_too_high_index(self):
+        vec = Vector(data=[1, 2, 3], dtype=np.int32)
+
+        with self.assertRaises(IndexError):
+            idx = vec[3]
+
+    def test_vector_len(self):
+        vec = Vector(data=[1, 2, 3])
+        expected_len = 3
+
+        actual_len = len(vec)
+
+        self.assertEqual(actual_len, expected_len)
+
+    def test_vector_iter(self):
+        data = [1, 2, 3, 4, 5]
+        vec = Vector(data=data, dtype=np.int32)
+
+        for i, item in enumerate(data):
+            self.assertEqual(vec[i], item)
+
