@@ -24,9 +24,5 @@ vec1[2]  # => -5
 vec1[-1]  # => -5
 
 for item in vec3:
-	print(item)
-
-# => 4
-# => -2
-# => -1
+	print(item, end=' ')  # => 4 -2 -1
 ```
