@@ -126,6 +126,16 @@ class VectorTestCase(TestCase):
         with self.assertRaises(ValueError):
             vec1 * vec2
 
+    def test_vector_rmul(self):
+        vec = Vector(data=[1, 2, 3, 4], dtype=np.int32)
+        expected_data = [2, 4, 6, 8]
+        scalar = 2
+
+        scaled_vec = scalar * vec
+
+        self.assertIsInstance(scaled_vec, Vector)
+        self.assertTrue(np.array_equal(scaled_vec.data, np.array(expected_data)))
+
     def test_vector_index(self):
         vec = Vector(data=[1, 2, 3], dtype=np.int32)
 

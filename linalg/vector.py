@@ -105,3 +105,9 @@ class Vector:
 
         return Vector(data=scaled_data, dtype=self.dtype)
 
+    def __rmul__(self, other: Union[int, float]) -> Vector:
+        """Scales a vector and returns the scaled vector"""
+        scaled_data = self.data * other
+
+        return Vector(data=scaled_data, dtype=self.dtype)
+
