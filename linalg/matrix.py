@@ -24,12 +24,12 @@ class Matrix:
         """Sets the data of the matrix"""
         if data is None:
             if rows < 2 or cols < 2:
-                raise ValueError("Minimum rank for a matrix is 2")
+                raise ValueError("Matrices has to be at least 2x2")
 
             return np.zeros((rows, cols), dtype=dtype)
 
         if type(data) is np.ndarray and data.shape < (2, 2):
-            raise ValueError("Minimum rank for a matrix is 2")
+            raise ValueError("Matrices has to be at least 2x2")
         elif type(data) is list and not self.__is_nested_list(data):
             raise ValueError("Data passed to matrix is invalid")
 
@@ -67,35 +67,19 @@ class Matrix:
     def __str__(self) -> str:
         return str(self.data)
 
-    def __add__(self, other: Union[Matrix, vector.Vector]) -> Matrix:
-        """Adds either:
-            - Two matrices
-            - A matrix and a vector
-        Returns a new matrix
-        """
-        if type(other) is Matrix and self.shape != other.shape:
+    def __add__(self, other: Matrix) -> Matrix:
+        """Adds two matrices and returns a new matrix"""
+        if self.shape != other.shape:
             raise ValueError("Matrices must be equal shaped")
-        elif type(other) is vector.Vector and self.shape[1] != other.size:
-            rows = self.shape[0]
-            cols = self.shape[1]
-            raise ValueError(f"Cannot add a {rows}x{cols} matrix and {other.size}x1 vector")
 
         data_sum = self.data + other.data
 
         return Matrix(data=data_sum, dtype=self.dtype)
 
-    def __sub__(self, other: Union[Matrix, vector.Vector]) -> Matrix:
-        """Subtracts either:
-            - Two matrices
-            - A matrix and a vector
-        Returns a new matrix
-        """
-        if type(other) is Matrix and self.shape != other.shape:
+    def __sub__(self, other: Matrix) -> Matrix:
+        """Subtracts two matrices and returns a new matrix"""
+        if self.shape != other.shape:
             raise ValueError("Matrices must be equal shaped")
-        elif type(other) is vector.Vector and self.shape[1] != other.size:
-            rows = self.shape[0]
-            cols = self.shape[1]
-            raise ValueError(f"Cannot subtract a {rows}x{cols} matrix and {other.size}x1 vector")
 
         data_sum = self.data - other.data
 
@@ -125,12 +109,16 @@ class Matrix:
             return Matrix(data=mul_data, dtype=self.dtype)
 
         if type(other) is vector.Vector:
-            mul_data = np.zeros(other.size)
+            sum_data = np.zeros(self.shape[0])
+            temp_matrix = Matrix(data=self.data, dtype=self.dtype)
 
-            for i, row in enumerate(other.data):
-                mul_data[i] = np.sum(row * self.data)
+            for i, scalar in enumerate(other.data):
+                temp_matrix.data[:,i] *= scalar
+            
+            for i, row in enumerate(temp_matrix.data):
+                sum_data[i] = np.sum(temp_matrix.data[i])
 
-            return vector.Vector(data=mul_data, dtype=self.dtype)
+            return vector.Vector(data=sum_data, dtype=self.dtype)
 
         scaled_data = self.data * other
 
