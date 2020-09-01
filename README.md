@@ -9,7 +9,7 @@ A collection of wrapper classes to make it easier (more readable) to work with [
 ```python
 import numpy as np
 
-from vector import Vector
+from linalg.vector import Vector
 
 
 vec1 = Vector(data=[1, 3, -5])  # => Vector(data=[1. 3. -5.], dtype=float32)
