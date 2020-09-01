@@ -3,7 +3,7 @@ from typing import Union
 
 import numpy as np
 
-import vector
+from linalg.vector import Vector
 
 
 class Matrix:
@@ -95,7 +95,7 @@ class Matrix:
 
         return Matrix(data=data_sum, dtype=self.dtype)
 
-    def __mul__(self, other: Union[Matrix, vector.Vector, int, float]) -> Union[Matrix, vector.Vector]:
+    def __mul__(self, other: Union[Matrix, Vector, int, float]) -> Union[Matrix, Vector]:
         """Performs:
             - Matrix-Matrix multiplication if other is a matrix
             - Matrix-vector multiplication if other is a vector
@@ -108,7 +108,7 @@ class Matrix:
         if type(other) is Matrix and self.shape[1] != other.shape[0]:
             raise ValueError((f"Cannot multiply a {self.shape[0]}x{self.shape[1]} matrix"
                             f" and a {other.shape[0]}x{other.shape[1]} matrix"))
-        elif type(other) is vector.Vector and self.shape[1] != other.size:
+        elif type(other) is Vector and self.shape[1] != other.size:
             raise ValueError(("Cannot perform matrix-vector multiplication on a "
                             f"{self.shape[0]}x{self.shape[1]} matrix and a "
                             f"{other.size}x1 vector"))
@@ -118,7 +118,7 @@ class Matrix:
 
             return Matrix(data=mul_data, dtype=self.dtype)
 
-        if type(other) is vector.Vector:
+        if type(other) is Vector:
             sum_data = np.zeros(self.shape[0])
             temp_matrix = Matrix(data=self.data, dtype=self.dtype)
 
@@ -128,7 +128,7 @@ class Matrix:
             for i, row in enumerate(temp_matrix.data):
                 sum_data[i] = np.sum(temp_matrix.data[i])
 
-            return vector.Vector(data=sum_data, dtype=self.dtype)
+            return Vector(data=sum_data, dtype=self.dtype)
 
         scaled_data = self.data * other
 

@@ -2,7 +2,7 @@ from unittest import TestCase
 
 import numpy as np
 
-from vector import Vector
+from linalg.vector import Vector
 
 
 class VectorTestCase(TestCase):

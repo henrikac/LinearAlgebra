@@ -1,6 +1,3 @@
-import sys
-
-
-if './linalg' not in sys.path:
-    sys.path.append('./linalg')
+from linalg.matrix import Matrix
+from linalg.vector import Vector
 

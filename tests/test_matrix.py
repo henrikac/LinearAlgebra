@@ -3,7 +3,7 @@ from unittest import TestCase
 import numpy as np
 
 from linalg.matrix import Matrix
-from vector import Vector
+from linalg.vector import Vector
 
 
 class MatrixTestCase(TestCase):
