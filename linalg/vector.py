@@ -56,19 +56,7 @@ class Vector:
             yield item
 
     def __getitem__(self, key: Union[int, slice]) -> Union[np.array, int, float]:
-        if isinstance(key, slice):
-            sliced_data = [self[i] for i in range(*key.indices(self.size))]
-            return np.array(sliced_data)
-        elif isinstance(key, int):
-            if key < 0:
-                key += self.size
-            if key < 0 or key >= self.size:
-                raise IndexError(f'Index {key} is out of range')
-
-            return self.data[key]
-
-        raise TypeError(f'Index must be an int, not {type(key).__name__}')
-
+        return self.data[key]
 
     def __add__(self, other: Vector) -> Vector:
         """Adds two vectors and returns a new vector"""
