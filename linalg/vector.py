@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import List, Union
+from typing import Iterator, List, Union
 
 import numpy as np
 
@@ -48,14 +48,14 @@ class Vector:
     def __str__(self) -> str:
         return str(self.data)
 
-    def __len__(self):
+    def __len__(self) -> int:
         return self.size
 
-    def __iter__(self):
+    def __iter__(self) -> Iterator[Union[int, float]]:
         for item in self.data:
             yield item
 
-    def __getitem__(self, key):
+    def __getitem__(self, key: Union[int, slice]) -> Union[np.array, int, float]:
         if isinstance(key, slice):
             sliced_data = [self[i] for i in range(*key.indices(self.size))]
             return np.array(sliced_data)
