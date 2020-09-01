@@ -147,12 +147,6 @@ class VectorTestCase(TestCase):
 
         self.assertEqual(vec[-1], 5)
 
-    def test_vector_invalid_index_type(self):
-        vec = Vector(data=[1, 2, 3], dtype=np.int32)
-
-        with self.assertRaises(TypeError):
-            idx = vec['1']
-
     def test_vector_too_low_index(self):
         vec = Vector(data=[1, 2, 3], dtype=np.int32)
 

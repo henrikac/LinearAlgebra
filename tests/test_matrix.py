@@ -159,3 +159,38 @@ class MatrixTestCase(TestCase):
         with self.assertRaises(ValueError):
             mv_prod = m * v
 
+    def test_matrix_index(self):
+        m_data = [[1, 2, 3], [4, 5, 6]]
+        expected_data = [4, 5, 6]
+        m = Matrix(data=m_data, dtype=np.int32)
+
+        indexed_value = m[1]
+
+        self.assertIsInstance(indexed_value, np.ndarray)
+        self.assertTrue(np.array_equal(indexed_value, np.array(expected_data)))
+
+    def test_matrix_index_column(self):
+        m_data = [[1, 2, 3], [4, 5, 6]]
+        expected_data = [2, 5]
+        m = Matrix(data=m_data, dtype=np.int32)
+
+        indexed_value = m[:,1]
+
+        self.assertIsInstance(indexed_value, np.ndarray)
+        self.assertTrue(np.array_equal(indexed_value, np.array(expected_data)))
+
+    def test_matrix_iter(self):
+        m_data = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+        m = Matrix(data=m_data, dtype=np.int32)
+
+        for i, item in enumerate(m):
+            self.assertTrue(np.array_equal(item, np.array(m_data[i])))
+
+    def test_matrix_len(self):
+        m_data = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+        m = Matrix(data=m_data, dtype=np.int32)
+
+        m_len = len(m)
+
+        self.assertEqual(m_len, len(m_data))
+
