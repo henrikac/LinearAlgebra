@@ -67,6 +67,16 @@ class Matrix:
     def __str__(self) -> str:
         return str(self.data)
 
+    def __len__(self):
+        return len(self.data)
+
+    def __iter__(self) -> Iterator[np.ndarray]:
+        for item in self.data:
+            yield item
+
+    def __getitem__(self, key: Union[int, slice]) -> np.ndarray:
+        return self.data[key]
+
     def __add__(self, other: Matrix) -> Matrix:
         """Adds two matrices and returns a new matrix"""
         if self.shape != other.shape:
