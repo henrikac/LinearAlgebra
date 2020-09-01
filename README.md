@@ -1,4 +1,6 @@
-# Linear Algebra
+# linalg
+
+A collection of wrapper classes to make it easier (more readable) to work with [NumPy](https://numpy.org/).
 
 ## Requirements
 + Python 3.7+
