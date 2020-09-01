@@ -2,6 +2,9 @@
 
 A collection of wrapper classes to make it easier (more readable) to work with [NumPy](https://numpy.org/).
 
+## Installation
+`pip install numpy-linalg`
+
 ## Requirements
 + Python 3.7+
 
